@@ -86,6 +86,7 @@ public class ReadExcel {
 		public int getY() {
 			return y;
 		}
+		
 	}
 
 	
