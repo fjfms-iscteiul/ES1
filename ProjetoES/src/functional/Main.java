@@ -1,5 +1,7 @@
 package functional;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +15,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        File excelFile = new File("C:\\Users\\fredf\\git\\ES1-2019-EIC1-44\\ProjetoES\\long-method");
+        getHostServices().showDocument(excelFile.toURI().toURL().toExternalForm());
+        
     }
 
 
