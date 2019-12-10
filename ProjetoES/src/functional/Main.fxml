@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="648.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="functional.MyController">
+   <top>
+      <GridPane prefHeight="648.0" prefWidth="1108.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="970.8" minWidth="10.0" prefWidth="902.9332763671875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.199951171875" minWidth="0.0" prefWidth="204.46672363281255" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="44.60001068115234" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="639.7333354949951" minHeight="10.0" prefHeight="602.9999893188476" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane prefHeight="416.0" prefWidth="610.0" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="methodID" prefWidth="75.0" text="method_id" />
+                      <TableColumn fx:id="packageName" prefWidth="75.0" text="package" />
+                        <TableColumn fx:id="className" prefWidth="75.0" text="class" />
+                        <TableColumn fx:id="methodName" prefWidth="75.0" text="method name" />
+                        <TableColumn fx:id="loc" prefWidth="75.0" text="loc" />
+                        <TableColumn fx:id="cyclo" prefWidth="75.0" text="cyclo" />
+                        <TableColumn fx:id="aftd" prefWidth="75.0" text="aftd" />
+                        <TableColumn fx:id="laa" prefWidth="75.0" text="laa" />
+                        <TableColumn fx:id="isLongMethod" prefWidth="75.0" text="is_long_method" />
+                        <TableColumn fx:id="iplasma" prefWidth="75.0" text="iPlasma" />
+                        <TableColumn fx:id="pmd" prefWidth="75.0" text="pmd" />
+                        <TableColumn fx:id="isFeatureEnvy" prefWidth="75.0" text="is_feature_envy" />
+                    </columns>
+                  </TableView>
+               </children>
+            </GridPane>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button fx:id="importButton" mnemonicParsing="false" onAction="#importFile" text="Import File" />
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>
