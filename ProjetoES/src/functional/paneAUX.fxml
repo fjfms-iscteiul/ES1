@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <AnchorPane layoutX="-119.0" layoutY="-265.0" prefHeight="649.0" prefWidth="727.0">
+         <children>
+            <Button fx:id="setLOC" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" onAction="#setLOC" text="LOC" />
+            <Button fx:id="setCYCLO" layoutX="169.0" layoutY="362.0" mnemonicParsing="false" onAction="#setCYCLO" text="CYCLO" />
+            <Button fx:id="setLATFD" layoutX="169.0" layoutY="415.0" mnemonicParsing="false" onAction="#setATFD" text="ATFD" />
+            <Button fx:id="setLAA" layoutX="169.0" layoutY="474.0" mnemonicParsing="false" onAction="#setLAA" text="LAA" />
+            <TextField layoutX="289.0" layoutY="312.0" />
+            <TextField layoutX="289.0" layoutY="362.0" />
+            <TextField layoutX="289.0" layoutY="415.0" />
+            <TextField layoutX="289.0" layoutY="474.0" />
+            <Button fx:id="Update" layoutX="169.0" layoutY="577.0" mnemonicParsing="false" onAction="#Update" prefHeight="25.0" prefWidth="506.0" text="UPDATE" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

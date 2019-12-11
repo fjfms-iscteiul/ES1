@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,8 +11,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane prefHeight="648.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="functional.MyController">
-   <top>
-      <GridPane prefHeight="648.0" prefWidth="1108.0">
+   <right>
+      <GridPane prefHeight="648.0" prefWidth="1108.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="970.8" minWidth="10.0" prefWidth="902.9332763671875" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.199951171875" minWidth="0.0" prefWidth="204.46672363281255" />
@@ -62,7 +63,12 @@
                   </ButtonBar>
                </children>
             </GridPane>
+            <Button fx:id="Thresholds" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Thresholds" prefHeight="25.0" prefWidth="84.0" text="Thresholds" textAlignment="CENTER" translateX="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
-   </top>
+   </right>
 </BorderPane>
