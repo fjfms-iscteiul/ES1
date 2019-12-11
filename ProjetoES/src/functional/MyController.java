@@ -38,19 +38,31 @@ public class MyController implements Initializable {
 
 	/* Table Fields */
 	@FXML
-	private TableView<MethodClass> esTable = new TableView<MethodClass>();
-//	@FXML private TableColumn<MethodClass, String> methodID;
-//	@FXML private TableColumn<MethodClass, String> packageName;
-//	@FXML private TableColumn<MethodClass, String> className;
-//	@FXML private TableColumn<MethodClass, String> methodName;
-//	@FXML private TableColumn<MethodClass, String> loc;
-//	@FXML private TableColumn<MethodClass, String> cyclo;
-//	@FXML private TableColumn<MethodClass, String> aftd;
-//	@FXML private TableColumn<MethodClass, String> laa;
-//	@FXML private TableColumn<MethodClass, String> isLongMethod;
-//	@FXML private TableColumn<MethodClass, String> iplasma;
-//	@FXML private TableColumn<MethodClass, String> pmd;
-//	@FXML private TableColumn<MethodClass, String> isFeatureEnvy;
+	private TableView<MethodClass> esTable;
+	@FXML
+	private TableColumn<MethodClass, String> methodID;
+	@FXML
+	private TableColumn<MethodClass, String> packageName;
+	@FXML
+	private TableColumn<MethodClass, String> className;
+	@FXML
+	private TableColumn<MethodClass, String> methodName;
+	@FXML
+	private TableColumn<MethodClass, String> loc;
+	@FXML
+	private TableColumn<MethodClass, String> cyclo;
+	@FXML
+	private TableColumn<MethodClass, String> aftd;
+	@FXML
+	private TableColumn<MethodClass, String> laa;
+	@FXML
+	private TableColumn<MethodClass, String> isLongMethod;
+	@FXML
+	private TableColumn<MethodClass, String> iplasma;
+	@FXML
+	private TableColumn<MethodClass, String> pmd;
+	@FXML
+	private TableColumn<MethodClass, String> isFeatureEnvy;
 
 	@FXML
 	private Button importButton;
@@ -77,52 +89,20 @@ public class MyController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		
-		//data = FXCollections.observableArrayList(rowsList);
-		
-		esTable.setItems(data);
-		
-		
-		TableColumn<MethodClass, String> methodID = new TableColumn<MethodClass, String>("methodID");
+		data = FXCollections.observableArrayList();
+
 		methodID.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("methodID"));
-
-		TableColumn<MethodClass, String> packageName = new TableColumn<MethodClass, String>("packageName");
 		packageName.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("packageName"));
-
-		TableColumn<MethodClass, String> className = new TableColumn<MethodClass, String>("ClassName");
 		className.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("className"));
-
-		TableColumn<MethodClass, String> methodName = new TableColumn<MethodClass, String>("MethodName");
 		methodName.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("methodName"));
-
-		TableColumn<MethodClass, String> loc = new TableColumn<MethodClass, String>("loc");
 		loc.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("loc"));
-
-		TableColumn<MethodClass, String> cyclo = new TableColumn<MethodClass, String>("cyclo");
 		cyclo.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("cyclo"));
-
-		TableColumn<MethodClass, String> aftd = new TableColumn<MethodClass, String>("aftd");
 		aftd.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("aftd"));
-
-		TableColumn<MethodClass, String> laa = new TableColumn<MethodClass, String>("laa");
 		laa.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("laa"));
-
-		TableColumn<MethodClass, String> isLongMethod = new TableColumn<MethodClass, String>("isLongMethod");
 		isLongMethod.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("isLongMethod"));
-
-		TableColumn<MethodClass, String> iplasma = new TableColumn<MethodClass, String>("iplasma");
 		iplasma.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("iplasma"));
-
-		TableColumn<MethodClass, String> pmd = new TableColumn<MethodClass, String>("pmd");
 		pmd.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("pmd"));
-
-		TableColumn<MethodClass, String> isFeatureEnvy = new TableColumn<MethodClass, String>("isFeatureEnvy");
 		isFeatureEnvy.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("isFeatureEnvy"));
-
-		
-
-		esTable.getColumns().addAll(methodID, packageName, className, methodName, loc, cyclo, aftd, laa, isLongMethod,
-				iplasma, pmd, isFeatureEnvy);
 
 	}
 
@@ -148,58 +128,58 @@ public class MyController implements Initializable {
 
 			while (cellIterator.hasNext()) {
 				Cell cell = cellIterator.next();
-				// System.out.println(cell);
-				if (cell.getColumnIndex() == 1) {
+
+				if (cell.getColumnIndex() == 0) {
 					tableRow.setMethodID(cell.toString());
+
+				}
+				if (cell.getColumnIndex() == 1) {
+					tableRow.setPackageName(cell.toString());
+					System.out.println(cell.toString());
 
 				}
 				if (cell.getColumnIndex() == 2) {
-					tableRow.setPackageName(cell.toString());
-
-				}
-				if (cell.getColumnIndex() == 3) {
 					tableRow.setClassName(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 4) {
-					tableRow.setMethodID(cell.toString());
+				if (cell.getColumnIndex() == 3) {
+					tableRow.setMethodName(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 5) {
+				if (cell.getColumnIndex() == 4) {
 					tableRow.setLoc(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 6) {
+				if (cell.getColumnIndex() == 5) {
 					tableRow.setCyclo(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 7) {
+				if (cell.getColumnIndex() == 6) {
 					tableRow.setAftd(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 8) {
+				if (cell.getColumnIndex() == 7) {
 					tableRow.setLaa(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 9) {
+				if (cell.getColumnIndex() == 8) {
 					tableRow.setIsLongMethod(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 10) {
+				if (cell.getColumnIndex() == 9) {
 					tableRow.setIplasma(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 11) {
+				if (cell.getColumnIndex() == 10) {
 					tableRow.setPmd(cell.toString());
 
 				}
-				if (cell.getColumnIndex() == 12) {
+				if (cell.getColumnIndex() == 11) {
 					tableRow.setIsFeatureEnvy(cell.toString());
 
 				}
 
 			}
-
 			rowsList.add(tableRow);
 
 		}
@@ -209,15 +189,16 @@ public class MyController implements Initializable {
 			@Override
 			public int compare(MethodClass o1, MethodClass o2) {
 				try {
-					return Integer.valueOf(o1.getMethodID()) - Integer.valueOf(o2.getMethodID());
+					return Integer.valueOf(o2.getMethodID()) - Integer.valueOf(o1.getMethodID());
 				} catch (NumberFormatException ex) { // handle your exception
-					return -1;
+					return 1;
 				}
 			}
 
 		});
-
-		
+		esTable.getItems().removeAll(data);
+		data.addAll(rowsList);
+		esTable.setItems(data);
 
 		workbook.close();
 		fis.close();

@@ -29,7 +29,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="esTable" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="methodID" prefWidth="75.0" text="method_id" />
                       <TableColumn fx:id="packageName" prefWidth="75.0" text="package" />
