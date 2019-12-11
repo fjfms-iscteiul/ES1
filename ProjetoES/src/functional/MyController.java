@@ -96,7 +96,7 @@ public class MyController implements Initializable {
 	
 	@FXML
 	public void Thresholds(ActionEvent event) throws Exception {
-		Parent border = FXMLLoader.load(getClass().getResource("paneAUX.fxml"));
+		Parent border = FXMLLoader.load(getClass().getResource("paneAUX.fxml")); // se fizer com o Main.fxml já funciona mas não estou a perceber o porque 
 		Scene borderTH = new Scene(border);
 		Stage novoPanel = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		novoPanel.setScene(borderTH);
