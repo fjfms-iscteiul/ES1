@@ -35,6 +35,7 @@ public class MyController implements Initializable {
 	private File excelFile;
 	private XSSFWorkbook workbook;
 	private ObservableList<MethodClass> data;
+//	private ObservableList<MethodClass> temp;
 	private List<MethodClass> rowsList;
 
 	/* Table Fields */
@@ -63,6 +64,7 @@ public class MyController implements Initializable {
 	@FXML private Button updateDefects;
 	@FXML private Button updateLong;
 	@FXML private Button updateFeature;
+	@FXML private Button resetButton;
 
 	/* Text Fields for Thresholds tab */
 	@FXML private TextField locValue;
@@ -79,9 +81,9 @@ public class MyController implements Initializable {
 	@FXML private PieChart pieDefects;
 	
 	/* Values for Threshold Changes */
-	private int LOC;
-	private int CYCLO;
-	private int AFTD;
+	private double LOC;
+	private double CYCLO;
+	private double AFTD;
 	private double LAA;	
 	
 	
@@ -92,7 +94,7 @@ public class MyController implements Initializable {
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Excel files", "*.xlsx"));
 		excelFile = fc.showOpenDialog(null);
-
+		
 		if (excelFile != null) {
 			try {
 				readExcel(excelFile.getAbsolutePath());
@@ -126,39 +128,60 @@ public class MyController implements Initializable {
 	}
 	
 	
+	/* Reset the table to its original state */
+	@FXML
+	public void resetOriginal(ActionEvent event) throws IOException {
+		
+		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
+		for(MethodClass mc : rowsList) {
+			temp.add(mc);
+		}
+		System.out.println(data.toString());
+		esTable.getItems().removeAll(esTable.getItems());
+		esTable.getItems().addAll(temp);
+		
+		System.out.println(excelFile.getAbsolutePath());
+	}
+	
+	
 	/* Methods to change the thresholds in Long and Feature */
 	@FXML
 	private void changeValuesLong(ActionEvent event) {
+		LOC = Double.valueOf(locValue.getText());
+		CYCLO = Double.valueOf(cycloValue.getText());
 		
-		LOC = Integer.valueOf(locValue.getText());
-		CYCLO = Integer.valueOf(cycloValue.getText());
-		System.out.println(LOC);
+		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
 		
-		for (MethodClass mc : rowsList) { 
-			if (Integer.valueOf(mc.getLoc()) > LOC && Integer.valueOf(mc.getCyclo()) > CYCLO)
-				mc.setIsLongMethod("TRUE");
+		for (MethodClass mc : rowsList) {
+			if (Double.valueOf(mc.getLoc()) > LOC && Double.valueOf(mc.getCyclo()) > CYCLO) {
+				mc.setIsLongMethod("TRUE");	
+			} else {
+				mc.setIsLongMethod("FALSE");	
+			}
 		}
 		
-		data.addAll(rowsList);
-		esTable.getItems().addAll(data);
-		
+		esTable.getItems().removeAll(esTable.getItems());
+		temp.addAll(rowsList);
+		esTable.getItems().addAll(temp);
 	}
 	
 	@FXML
 	private void changeValuesFeature(ActionEvent event) {
+		AFTD = Double.valueOf(aftdValue.getText());
+		LAA = Double.valueOf(laaValue.getText());
 		
-		AFTD = Integer.valueOf(aftdValue.getText());
-		LAA = Integer.valueOf(laaValue.getText());
-		System.out.println(AFTD);
+		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
 		
-		for (MethodClass mc : rowsList) { 
-			if (Integer.valueOf(mc.getAftd()) > AFTD && Integer.valueOf(mc.getLaa()) < LAA)
-				mc.setIsLongMethod("TRUE");
+		for (MethodClass mc : rowsList) {
+			if (Double.valueOf(mc.getAftd()) > AFTD && Double.valueOf(mc.getLaa()) < LAA) {
+				mc.setIsFeatureEnvy("TRUE");	
+			} else {
+				mc.setIsFeatureEnvy("FALSE");	
+			}
 		}
-		
-		data.addAll(rowsList);
-		esTable.getItems().addAll(data);
-		
+		esTable.getItems().removeAll(esTable.getItems());
+		temp.addAll(rowsList);
+		esTable.getItems().addAll(temp);
 	}
 	
 	
@@ -186,12 +209,10 @@ public class MyController implements Initializable {
 		adci = 0;
 		adii = 0;
 		
-		for(MethodClass me: data) {
+		for(MethodClass me: rowsList) {
 			defectsDetector(me);
-
 		}
 		
-		/* Colocar código de update de textfields */
 		dciValue.setText("" + dci);
 		diiValue.setText("" + dii );
 		adciValue.setText("" + adci);
@@ -217,7 +238,9 @@ public class MyController implements Initializable {
 		workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		rowsList = new ArrayList<MethodClass>();
-
+		
+		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
+		
 		/* Iterate in rows */
 		Iterator<Row> rowIt = sheet.iterator();
 
@@ -238,7 +261,6 @@ public class MyController implements Initializable {
 				}
 				if (cell.getColumnIndex() == 1) {
 					tableRow.setPackageName(cell.toString());
-					System.out.println(cell.toString());
 
 				}
 				if (cell.getColumnIndex() == 2) {
@@ -285,7 +307,6 @@ public class MyController implements Initializable {
 			}
 			
 			rowsList.add(tableRow);
-			defectsDetector(tableRow);
 			
 		}
 
@@ -302,15 +323,13 @@ public class MyController implements Initializable {
 
 		});
 		
-		esTable.getItems().removeAll(data);
+		esTable.getItems().removeAll(esTable.getItems());
 		data.addAll(rowsList);
-		esTable.setItems(data);
+		temp.addAll(rowsList);
+		esTable.getItems().addAll(temp);
 		
-		/* Colocar código de update de textfields */
-		dciValue.setText("" + dci);
-		diiValue.setText("" + dii );
-		adciValue.setText("" + adci);
-		adiiValue.setText("" + adii);
+		updateDefectsCount(null);
+		
 		workbook.close();
 		fis.close();
 

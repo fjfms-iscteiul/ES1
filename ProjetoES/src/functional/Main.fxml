@@ -146,7 +146,7 @@
                                     <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                       <buttons>
                                           <Label text="Table back to Original" />
-                                        <Button mnemonicParsing="false" text="Reset" />
+                                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetOriginal" text="Reset" />
                                       </buttons>
                                        <padding>
                                           <Insets right="25.0" />
@@ -170,7 +170,7 @@
                                           <ButtonBar prefHeight="40.0" prefWidth="307.0" GridPane.rowIndex="1">
                                              <buttons>
                                                 <Label alignment="CENTER" text="AFTD &gt;" />
-                                                <TextField fx:id="aftdValue1" />
+                                                <TextField fx:id="aftdValue" />
                                              </buttons>
                                              <padding>
                                                 <Insets right="20.0" />
@@ -193,7 +193,7 @@
                                           <ButtonBar prefHeight="59.0" prefWidth="307.0" GridPane.rowIndex="3">
                                              <buttons>
                                                 <Label alignment="CENTER" text="LAA &lt;" />
-                                                <TextField fx:id="lssValue1" />
+                                                <TextField fx:id="laaValue" />
                                              </buttons>
                                              <padding>
                                                 <Insets right="20.0" />
@@ -241,7 +241,7 @@
                               <TextField fx:id="diiValue" editable="false" layoutX="122.0" layoutY="118.0" />
                               <TextField fx:id="adciValue" editable="false" layoutX="119.0" layoutY="180.0" />
                               <TextField fx:id="adiiValue" editable="false" layoutX="119.0" layoutY="247.0" />
-                              <PieChart fx:id="pieDefects" layoutX="41.0" layoutY="364.0" legendSide="TOP" prefHeight="217.0" prefWidth="239.0" title="Defects Comparison" />
+                              <PieChart fx:id="pieDefects" layoutX="41.0" layoutY="364.0" prefHeight="217.0" prefWidth="239.0" title="Defects Comparison" />
                               <Button fx:id="updateDefects" layoutX="82.0" layoutY="301.0" mnemonicParsing="false" onAction="#updateDefectsCount" prefHeight="26.0" prefWidth="156.0" text="Update Defects Count" />
                            </children></AnchorPane>
                   </content>
