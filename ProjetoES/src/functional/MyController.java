@@ -132,15 +132,9 @@ public class MyController implements Initializable {
 	@FXML
 	public void resetOriginal(ActionEvent event) throws IOException {
 		
-		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
-		for(MethodClass mc : rowsList) {
-			temp.add(mc);
-		}
-		System.out.println(data.toString());
-		esTable.getItems().removeAll(esTable.getItems());
-		esTable.getItems().addAll(temp);
+		readExcel(excelFile.getAbsolutePath());
+
 		
-		System.out.println(excelFile.getAbsolutePath());
 	}
 	
 	
@@ -323,7 +317,7 @@ public class MyController implements Initializable {
 
 		});
 		
-		esTable.getItems().removeAll(esTable.getItems());
+		esTable.getItems().removeAll(data);
 		data.addAll(rowsList);
 		temp.addAll(rowsList);
 		esTable.getItems().addAll(temp);
