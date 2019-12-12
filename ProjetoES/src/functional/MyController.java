@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -33,6 +34,10 @@ public class MyController implements Initializable {
 	private File excelFile;
 	private XSSFWorkbook workbook;
 	private ObservableList<MethodClass> data;
+	private int LOC;
+	private int CYCLO;
+	private int ATFD;
+	private double LAA;
 
 	private List<MethodClass> rowsList;
 
@@ -66,6 +71,28 @@ public class MyController implements Initializable {
 
 	@FXML
 	private Button importButton;
+
+	@FXML
+	private TextField LOCValue;
+
+	@FXML
+	private TextField CYCLOValue;
+
+	@FXML
+	private Button Update;
+
+	@FXML
+	void changeValues(ActionEvent event) {
+		LOC = Integer.valueOf(LOCValue.getText());
+		CYCLO = Integer.valueOf(CYCLOValue.getText());
+		esTable.getItems().removeAll(data);
+		for (MethodClass mc : rowsList) { 
+			if (Integer.valueOf(mc.getLoc()) > LOC && Integer.valueOf(mc.getCyclo()) > CYCLO)
+				mc.setIsLongMethod("TRUE");
+		}
+		data.addAll(rowsList);
+		esTable.getItems().addAll(data);
+	}
 
 	/* Chooses file and inputs the path to readExcel */
 	@FXML
@@ -135,7 +162,6 @@ public class MyController implements Initializable {
 				}
 				if (cell.getColumnIndex() == 1) {
 					tableRow.setPackageName(cell.toString());
-					System.out.println(cell.toString());
 
 				}
 				if (cell.getColumnIndex() == 2) {
