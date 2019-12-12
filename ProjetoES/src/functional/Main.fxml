@@ -217,32 +217,68 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="40.0" layoutY="50.0" text="DCI">
+                              <Label layoutX="7.0" layoutY="46.0" text="DCI">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="44.0" layoutY="117.0" text="DII">
+                              <Label layoutX="11.0" layoutY="80.0" text="DII">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="33.0" layoutY="178.0" text="ADCI">
+                              <Label layoutX="9.0" layoutY="114.0" text="ADCI">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="38.0" layoutY="242.0" text="ADII">
+                              <Label layoutX="11.0" layoutY="149.0" text="ADII">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="dciValue" editable="false" layoutX="120.0" layoutY="55.0" />
-                              <TextField fx:id="diiValue" editable="false" layoutX="122.0" layoutY="118.0" />
-                              <TextField fx:id="adciValue" editable="false" layoutX="119.0" layoutY="180.0" />
-                              <TextField fx:id="adiiValue" editable="false" layoutX="119.0" layoutY="247.0" />
-                              <PieChart fx:id="pieDefects" layoutX="41.0" layoutY="364.0" prefHeight="217.0" prefWidth="239.0" title="Defects Comparison" />
-                              <Button fx:id="updateDefects" layoutX="82.0" layoutY="301.0" mnemonicParsing="false" onAction="#updateDefectsCount" prefHeight="26.0" prefWidth="156.0" text="Update Defects Count" />
+                              <TextField fx:id="dciValuePlasma" editable="false" layoutX="70.0" layoutY="51.0" prefWidth="60.0" />
+                              <TextField fx:id="diiValuePlasma" editable="false" layoutX="70.0" layoutY="85.0" prefWidth="60.0" />
+                              <TextField fx:id="adciValuePlasma" editable="false" layoutX="70.0" layoutY="121.0" prefWidth="60.0" />
+                              <TextField fx:id="adiiValuePlasma" editable="false" layoutX="70.0" layoutY="154.0" prefWidth="60.0" />
+                              <PieChart fx:id="pieDefectsPlasma" layoutX="38.0" layoutY="192.0" prefHeight="217.0" prefWidth="225.0" title="iPlasma Defects" />
+                              <Button fx:id="updateDefects" layoutX="73.0" layoutY="642.0" mnemonicParsing="false" onAction="#updateDefectsCount" prefHeight="26.0" prefWidth="156.0" text="Update Defects Count" />
+                              <Label layoutX="16.0" layoutY="5.0" text="iPlasma">
+                                 <font>
+                                    <Font name="System Bold Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="160.0" layoutY="46.0" text="DCI">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="164.0" layoutY="78.0" text="DII">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="162.0" layoutY="148.0" text="ADII">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="163.0" layoutY="114.0" text="ADCI">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="dciValuePMD" editable="false" layoutX="224.0" layoutY="50.0" prefWidth="60.0" />
+                              <TextField fx:id="diiValuePMD" editable="false" layoutX="225.0" layoutY="82.0" prefWidth="60.0" />
+                              <TextField fx:id="adciValuePMD" editable="false" layoutX="226.0" layoutY="117.0" prefWidth="60.0" />
+                              <TextField fx:id="adiiValuePMD" editable="false" layoutX="225.0" layoutY="152.0" prefWidth="60.0" />
+                              <PieChart fx:id="pieDefectsPMD" layoutX="35.0" layoutY="412.0" prefHeight="217.0" prefWidth="239.0" title="PMD Defects" />
+                              <Label layoutX="183.0" layoutY="3.0" text="PMD">
+                                 <font>
+                                    <Font name="System Bold Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="147.0" layoutY="10.0" orientation="VERTICAL" prefHeight="180.0" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

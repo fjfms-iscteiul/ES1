@@ -35,7 +35,7 @@ public class MyController implements Initializable {
 	private File excelFile;
 	private XSSFWorkbook workbook;
 	private ObservableList<MethodClass> data;
-//	private ObservableList<MethodClass> temp;
+	//	private ObservableList<MethodClass> temp;
 	private List<MethodClass> rowsList;
 
 	/* Table Fields */
@@ -52,13 +52,17 @@ public class MyController implements Initializable {
 	@FXML private TableColumn<MethodClass, String> iplasma;
 	@FXML private TableColumn<MethodClass, String> pmd;
 	@FXML private TableColumn<MethodClass, String> isFeatureEnvy;
-	
+
 	/* Defects counters */
-	private int dci = 0;
-	private int dii = 0;
-	private int adci = 0;
-	private int adii = 0;
-	
+	private int dciPlasma = 0;
+	private int diiPlasma = 0;
+	private int adciPlasma = 0;
+	private int adiiPlasma = 0;
+	private int dciPMD = 0;
+	private int diiPMD = 0;
+	private int adciPMD = 0;
+	private int adiiPMD = 0;
+
 	/* Buttons used in the interface */
 	@FXML private Button importButton;
 	@FXML private Button updateDefects;
@@ -71,22 +75,27 @@ public class MyController implements Initializable {
 	@FXML private TextField cycloValue;
 	@FXML private TextField aftdValue;
 	@FXML private TextField laaValue;
-	
+
 	/* Text Fields and Pie Chart for Defects Tab */
-	@FXML private TextField dciValue;
-	@FXML private TextField diiValue;
-	@FXML private TextField adciValue;
-	@FXML private TextField adiiValue;
-	
-	@FXML private PieChart pieDefects;
-	
+	@FXML private TextField dciValuePlasma;
+	@FXML private TextField diiValuePlasma;
+	@FXML private TextField adciValuePlasma;
+	@FXML private TextField adiiValuePlasma;
+	@FXML private TextField dciValuePMD;
+	@FXML private TextField diiValuePMD;
+	@FXML private TextField adciValuePMD;
+	@FXML private TextField adiiValuePMD;
+
+	@FXML private PieChart pieDefectsPlasma;
+	@FXML private PieChart pieDefectsPMD;
+
 	/* Values for Threshold Changes */
 	private double LOC;
 	private double CYCLO;
 	private double AFTD;
 	private double LAA;	
-	
-	
+
+
 	/* Chooses file and inputs the path to readExcel */
 	@FXML
 	public void importFile(ActionEvent event) {
@@ -94,7 +103,7 @@ public class MyController implements Initializable {
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Excel files", "*.xlsx"));
 		excelFile = fc.showOpenDialog(null);
-		
+
 		if (excelFile != null) {
 			try {
 				readExcel(excelFile.getAbsolutePath());
@@ -104,8 +113,8 @@ public class MyController implements Initializable {
 		}
 
 	}
-	
-	
+
+
 	/* Initialize the table view */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -126,26 +135,23 @@ public class MyController implements Initializable {
 		isFeatureEnvy.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("isFeatureEnvy"));
 
 	}
-	
-	
+
+
 	/* Reset the table to its original state */
 	@FXML
 	public void resetOriginal(ActionEvent event) throws IOException {
-		
 		readExcel(excelFile.getAbsolutePath());
-
-		
 	}
-	
-	
+
+
 	/* Methods to change the thresholds in Long and Feature */
 	@FXML
 	private void changeValuesLong(ActionEvent event) {
 		LOC = Double.valueOf(locValue.getText());
 		CYCLO = Double.valueOf(cycloValue.getText());
-		
+
 		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
-		
+
 		for (MethodClass mc : rowsList) {
 			if (Double.valueOf(mc.getLoc()) > LOC && Double.valueOf(mc.getCyclo()) > CYCLO) {
 				mc.setIsLongMethod("TRUE");	
@@ -153,19 +159,19 @@ public class MyController implements Initializable {
 				mc.setIsLongMethod("FALSE");	
 			}
 		}
-		
+
 		esTable.getItems().removeAll(esTable.getItems());
 		temp.addAll(rowsList);
 		esTable.getItems().addAll(temp);
 	}
-	
+
 	@FXML
 	private void changeValuesFeature(ActionEvent event) {
 		AFTD = Double.valueOf(aftdValue.getText());
 		LAA = Double.valueOf(laaValue.getText());
-		
+
 		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
-		
+
 		for (MethodClass mc : rowsList) {
 			if (Double.valueOf(mc.getAftd()) > AFTD && Double.valueOf(mc.getLaa()) < LAA) {
 				mc.setIsFeatureEnvy("TRUE");	
@@ -177,52 +183,82 @@ public class MyController implements Initializable {
 		temp.addAll(rowsList);
 		esTable.getItems().addAll(temp);
 	}
-	
-	
+
+
 	/* Detects the defects within the a MethodClass item */
 	private void defectsDetector(MethodClass tableRow) {
+
+
+		if(tableRow.getIplasma().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			dciPlasma++;
+		} else if(tableRow.getIplasma().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			diiPlasma++;
+		} else if(tableRow.getIplasma().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			adciPlasma++;
+		} else if(tableRow.getIplasma().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			adiiPlasma++;
+		}
 		
-		
-		if((tableRow.getPmd().equalsIgnoreCase("TRUE") || tableRow.getIplasma().equalsIgnoreCase("TRUE")) && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
-			dci++;
-		} else if((tableRow.getPmd().equalsIgnoreCase("TRUE") || tableRow.getIplasma().equalsIgnoreCase("TRUE")) && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
-			dii++;
-		} else if((tableRow.getPmd().equalsIgnoreCase("FALSE") || tableRow.getIplasma().equalsIgnoreCase("FALSE")) && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
-			adci++;
-		} else if((tableRow.getPmd().equalsIgnoreCase("FALSE") || tableRow.getIplasma().equalsIgnoreCase("FALSE")) && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
-			adii++;
+		if(tableRow.getPmd().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			dciPMD++;
+		} else if(tableRow.getPmd().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			diiPMD++;
+		} else if(tableRow.getPmd().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			adciPMD++;
+		} else if(tableRow.getPmd().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			adiiPMD++;
 		}
 	}
 	
+
+
 	/* Updates the defects view in the GUI */
 	@FXML
 	private void updateDefectsCount(ActionEvent event) {
+
+		dciPlasma = 0;
+		diiPlasma = 0;
+		adciPlasma = 0;
+		adiiPlasma = 0;
 		
-		dci = 0;
-		dii = 0;
-		adci = 0;
-		adii = 0;
-		
+		dciPMD = 0;
+		diiPMD = 0;
+		adciPMD = 0;
+		adiiPMD = 0;
+
 		for(MethodClass me: rowsList) {
 			defectsDetector(me);
 		}
+
+		dciValuePlasma.setText("" + dciPlasma);
+		diiValuePlasma.setText("" + diiPlasma);
+		adciValuePlasma.setText("" + adciPlasma);
+		adiiValuePlasma.setText("" + adiiPlasma);
 		
-		dciValue.setText("" + dci);
-		diiValue.setText("" + dii );
-		adciValue.setText("" + adci);
-		adiiValue.setText("" + adii);
-		
+		dciValuePMD.setText("" + dciPMD);
+		diiValuePMD.setText("" + diiPMD);
+		adciValuePMD.setText("" + adciPMD);
+		adiiValuePMD.setText("" + adiiPMD);
+
 		/* Pie Chart update */
-		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-				new PieChart.Data("DCI", dci),
-				new PieChart.Data("DII", dii),
-				new PieChart.Data("ADCI", adci),
-				new PieChart.Data("ADII", adii));
+		ObservableList<PieChart.Data> pieChartDataPlasma = FXCollections.observableArrayList(
+				new PieChart.Data("DCI", dciPlasma),
+				new PieChart.Data("DII", diiPlasma),
+				new PieChart.Data("ADCI", adciPlasma),
+				new PieChart.Data("ADII", adiiPlasma));
+
+		pieDefectsPlasma.setData(pieChartDataPlasma);
 		
-		pieDefects.setData(pieChartData);
-		
+		ObservableList<PieChart.Data> pieChartDataPMD = FXCollections.observableArrayList(
+				new PieChart.Data("DCI", dciPMD),
+				new PieChart.Data("DII", diiPMD),
+				new PieChart.Data("ADCI", adciPMD),
+				new PieChart.Data("ADII", adiiPMD));
+
+		pieDefectsPMD.setData(pieChartDataPMD);
+
 	}
-	
+
 
 	/* Reads the ExcelFile and stores it in a List */
 	private void readExcel(String excel_file) throws IOException {
@@ -232,9 +268,9 @@ public class MyController implements Initializable {
 		workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		rowsList = new ArrayList<MethodClass>();
-		
+
 		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
-		
+
 		/* Iterate in rows */
 		Iterator<Row> rowIt = sheet.iterator();
 
@@ -299,9 +335,9 @@ public class MyController implements Initializable {
 				}
 
 			}
-			
+
 			rowsList.add(tableRow);
-			
+
 		}
 
 		rowsList.sort(new Comparator<MethodClass>() {
@@ -316,14 +352,14 @@ public class MyController implements Initializable {
 			}
 
 		});
-		
+
 		esTable.getItems().removeAll(data);
 		data.addAll(rowsList);
 		temp.addAll(rowsList);
 		esTable.getItems().addAll(temp);
-		
+
 		updateDefectsCount(null);
-		
+
 		workbook.close();
 		fis.close();
 
