@@ -1,6 +1,5 @@
 package functional;
 
-import java.awt.TextField;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.scene.control.TextField;
 
 public class MyController implements Initializable {
 
@@ -53,10 +53,10 @@ public class MyController implements Initializable {
 	@FXML private TableColumn<MethodClass, String> isFeatureEnvy;
 	
 	/* Defects counters */
-	private int dciValue = 0;
-	private int diiValue = 0;
-	private int adciValue = 0;
-	private int adiiValue = 0;
+	private int dci = 0;
+	private int dii = 0;
+	private int adci = 0;
+	private int adii = 0;
 	
 	/* Buttons used in the interface */
 	@FXML private Button importButton;
@@ -71,6 +71,10 @@ public class MyController implements Initializable {
 	@FXML private TextField laaValue;
 	
 	/* Text Fields and Pie Chart for Defects Tab */
+	@FXML private TextField dciValue;
+	@FXML private TextField diiValue;
+	@FXML private TextField adciValue;
+	@FXML private TextField adiiValue;
 	
 	@FXML private PieChart pieDefects;
 	
@@ -163,13 +167,13 @@ public class MyController implements Initializable {
 		
 		
 		if((tableRow.getPmd().equalsIgnoreCase("TRUE") || tableRow.getIplasma().equalsIgnoreCase("TRUE")) && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
-			dciValue++;
+			dci++;
 		} else if((tableRow.getPmd().equalsIgnoreCase("TRUE") || tableRow.getIplasma().equalsIgnoreCase("TRUE")) && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
-			diiValue++;
+			dii++;
 		} else if((tableRow.getPmd().equalsIgnoreCase("FALSE") || tableRow.getIplasma().equalsIgnoreCase("FALSE")) && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
-			adciValue++;
+			adci++;
 		} else if((tableRow.getPmd().equalsIgnoreCase("FALSE") || tableRow.getIplasma().equalsIgnoreCase("FALSE")) && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
-			adiiValue++;
+			adii++;
 		}
 	}
 	
@@ -177,10 +181,10 @@ public class MyController implements Initializable {
 	@FXML
 	private void updateDefectsCount(ActionEvent event) {
 		
-		dciValue = 0;
-		diiValue = 0;
-		adciValue = 0;
-		adiiValue = 0;
+		dci = 0;
+		dii = 0;
+		adci = 0;
+		adii = 0;
 		
 		for(MethodClass me: data) {
 			defectsDetector(me);
@@ -188,14 +192,17 @@ public class MyController implements Initializable {
 		}
 		
 		/* Colocar código de update de textfields */
-		
+		dciValue.setText("" + dci);
+		diiValue.setText("" + dii );
+		adciValue.setText("" + adci);
+		adiiValue.setText("" + adii);
 		
 		/* Pie Chart update */
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-				new PieChart.Data("DCI", dciValue),
-				new PieChart.Data("DII", diiValue),
-				new PieChart.Data("ADCI", adciValue),
-				new PieChart.Data("ADII", adiiValue));
+				new PieChart.Data("DCI", dci),
+				new PieChart.Data("DII", dii),
+				new PieChart.Data("ADCI", adci),
+				new PieChart.Data("ADII", adii));
 		
 		pieDefects.setData(pieChartData);
 		
@@ -300,7 +307,10 @@ public class MyController implements Initializable {
 		esTable.setItems(data);
 		
 		/* Colocar código de update de textfields */
-
+		dciValue.setText("" + dci);
+		diiValue.setText("" + dii );
+		adciValue.setText("" + adci);
+		adiiValue.setText("" + adii);
 		workbook.close();
 		fis.close();
 
