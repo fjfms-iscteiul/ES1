@@ -92,6 +92,7 @@ public class MyController implements Initializable {
 		}
 		data.addAll(rowsList);
 		esTable.getItems().addAll(data);
+		System.out.println("quem mexer nesta merda apanha no cu");
 	}
 
 	/* Chooses file and inputs the path to readExcel */
