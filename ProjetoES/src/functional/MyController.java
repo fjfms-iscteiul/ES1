@@ -31,14 +31,15 @@ import javafx.scene.control.TextField;
 
 public class MyController implements Initializable {
 
-	/* File, workbook and list that will be shown in TableView */
+	/* File, workbook and list that will be shown in Main table and in the Defects table */
 	private File excelFile;
 	private XSSFWorkbook workbook;
 	private ObservableList<MethodClass> data;
-	//	private ObservableList<MethodClass> temp;
 	private List<MethodClass> rowsList;
+	private ObservableList<Defects> defectsData;
+	private List<Defects> defectsList;
 
-	/* Table Fields */
+	/* Table Fields for the main table */
 	@FXML private TableView<MethodClass> esTable;
 	@FXML private TableColumn<MethodClass, String> methodID;
 	@FXML private TableColumn<MethodClass, String> packageName;
@@ -52,6 +53,19 @@ public class MyController implements Initializable {
 	@FXML private TableColumn<MethodClass, String> iplasma;
 	@FXML private TableColumn<MethodClass, String> pmd;
 	@FXML private TableColumn<MethodClass, String> isFeatureEnvy;
+	
+	/* Table Fields for the main table */
+	@FXML private TableView<Defects> defectsTable;
+	@FXML private TableColumn<Defects, String> methodDefectsColumn;
+	@FXML private TableColumn<Defects, String> dciPlasmaColumn;
+	@FXML private TableColumn<Defects, String> diiPlasmaColumn;
+	@FXML private TableColumn<Defects, String> adciPlasmaColumn;
+	@FXML private TableColumn<Defects, String> adiiPlasmaColumn;
+	@FXML private TableColumn<Defects, String> dciPMDColumn;
+	@FXML private TableColumn<Defects, String> diiPMDColumn;
+	@FXML private TableColumn<Defects, String> adciPMDColumn;
+	@FXML private TableColumn<Defects, String> adiiPMDColumn;
+	
 
 	/* Defects counters */
 	private int dciPlasma = 0;
@@ -118,7 +132,8 @@ public class MyController implements Initializable {
 	/* Initialize the table view */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		
+		/* Main table */
 		data = FXCollections.observableArrayList();
 
 		methodID.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("methodID"));
@@ -133,7 +148,21 @@ public class MyController implements Initializable {
 		iplasma.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("iplasma"));
 		pmd.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("pmd"));
 		isFeatureEnvy.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("isFeatureEnvy"));
-
+		
+		/* Defects table */
+		
+		defectsData = FXCollections.observableArrayList();
+		
+		methodDefectsColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("methodDefectsColumn"));
+		dciPlasmaColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("dciPlasmaColumn"));
+		diiPlasmaColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("diiPlasmaColumn"));
+		adciPlasmaColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("adciPlasmaColumn"));
+		adiiPlasmaColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("adiiPlasmaColumn"));
+		dciPMDColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("dciPMDColumn"));
+		diiPMDColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("diiPMDColumn"));
+		adciPMDColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("adciPMDColumn"));
+		adiiPMDColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("adiiPMDColumn"));
+		
 	}
 
 
@@ -147,6 +176,7 @@ public class MyController implements Initializable {
 	/* Methods to change the thresholds in Long and Feature */
 	@FXML
 	private void changeValuesLong(ActionEvent event) {
+		
 		LOC = Double.valueOf(locValue.getText());
 		CYCLO = Double.valueOf(cycloValue.getText());
 
@@ -167,9 +197,10 @@ public class MyController implements Initializable {
 
 	@FXML
 	private void changeValuesFeature(ActionEvent event) {
+		
 		AFTD = Double.valueOf(aftdValue.getText());
 		LAA = Double.valueOf(laaValue.getText());
-
+		
 		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
 
 		for (MethodClass mc : rowsList) {
@@ -179,6 +210,7 @@ public class MyController implements Initializable {
 				mc.setIsFeatureEnvy("FALSE");	
 			}
 		}
+		
 		esTable.getItems().removeAll(esTable.getItems());
 		temp.addAll(rowsList);
 		esTable.getItems().addAll(temp);
@@ -188,26 +220,42 @@ public class MyController implements Initializable {
 	/* Detects the defects within the a MethodClass item */
 	private void defectsDetector(MethodClass tableRow) {
 
-
+		Defects defect = new Defects();
+		defect.setMethodDefectsColumn(tableRow.getMethodID());
+		
 		if(tableRow.getIplasma().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			defect.setDciPlasmaColumn("TRUE"); defect.setDiiPlasmaColumn("FALSE"); defect.setAdciPlasmaColumn("FALSE"); defect.setAdiiPlasmaColumn("FALSE");
 			dciPlasma++;
+			
 		} else if(tableRow.getIplasma().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			defect.setDciPlasmaColumn("FALSE"); defect.setDiiPlasmaColumn("TRUE"); defect.setAdciPlasmaColumn("FALSE"); defect.setAdiiPlasmaColumn("FALSE");
 			diiPlasma++;
+			
 		} else if(tableRow.getIplasma().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			defect.setDciPlasmaColumn("FALSE"); defect.setDiiPlasmaColumn("FALSE"); defect.setAdciPlasmaColumn("TRUE"); defect.setAdiiPlasmaColumn("FALSE");
 			adciPlasma++;
 		} else if(tableRow.getIplasma().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			defect.setDciPlasmaColumn("FALSE"); defect.setDiiPlasmaColumn("FALSE"); defect.setAdciPlasmaColumn("FALSE"); defect.setAdiiPlasmaColumn("TRUE");
 			adiiPlasma++;
 		}
 		
 		if(tableRow.getPmd().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			defect.setDciPMDColumn("TRUE"); defect.setDiiPMDColumn("FALSE"); defect.setAdciPMDColumn("FALSE"); defect.setAdiiPMDColumn("FALSE");
 			dciPMD++;
 		} else if(tableRow.getPmd().equalsIgnoreCase("TRUE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			defect.setDciPMDColumn("FALSE"); defect.setDiiPMDColumn("TRUE"); defect.setAdciPMDColumn("FALSE"); defect.setAdiiPMDColumn("FALSE");
 			diiPMD++;
 		} else if(tableRow.getPmd().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("FALSE")) {
+			defect.setDciPMDColumn("FALSE"); defect.setDiiPMDColumn("FALSE"); defect.setAdciPMDColumn("TRUE"); defect.setAdiiPMDColumn("FALSE");
 			adciPMD++;
 		} else if(tableRow.getPmd().equalsIgnoreCase("FALSE") && tableRow.getIsLongMethod().equalsIgnoreCase("TRUE")) {
+			defect.setDciPMDColumn("FALSE"); defect.setDiiPMDColumn("FALSE"); defect.setAdciPMDColumn("FALSE"); defect.setAdiiPMDColumn("TRUE");
 			adiiPMD++;
 		}
+		
+		defectsList.add(defect);
+		
+		
 	}
 	
 
@@ -215,7 +263,10 @@ public class MyController implements Initializable {
 	/* Updates the defects view in the GUI */
 	@FXML
 	private void updateDefectsCount(ActionEvent event) {
-
+		
+		ObservableList<Defects> temp = FXCollections.observableArrayList();
+		defectsList.clear();
+		
 		dciPlasma = 0;
 		diiPlasma = 0;
 		adciPlasma = 0;
@@ -256,6 +307,11 @@ public class MyController implements Initializable {
 				new PieChart.Data("ADII", adiiPMD));
 
 		pieDefectsPMD.setData(pieChartDataPMD);
+		
+		defectsTable.getItems().removeAll(defectsData);
+		defectsData.addAll(defectsList);
+		temp.addAll(defectsList);
+		defectsTable.getItems().addAll(temp);
 
 	}
 
@@ -268,11 +324,15 @@ public class MyController implements Initializable {
 		workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		rowsList = new ArrayList<MethodClass>();
+		defectsList = new ArrayList<Defects>();
 
 		ObservableList<MethodClass> temp = FXCollections.observableArrayList();
 
 		/* Iterate in rows */
 		Iterator<Row> rowIt = sheet.iterator();
+		
+		/* Dismisses the row in which appears column names */
+		rowIt.next();
 
 		while (rowIt.hasNext()) {
 
