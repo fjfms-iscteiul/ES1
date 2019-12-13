@@ -7,7 +7,7 @@ import functional.MethodClass;
 import functional.MyController;
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses({MyControllerTest.class, MethodClassTest.class, MyControllerTestFX.class })
+@SelectClasses({MyControllerTest.class, MethodClassTest.class, MyControllerTestFX.class, DefectsTest.class })
 public class AllTests {
 
 }
