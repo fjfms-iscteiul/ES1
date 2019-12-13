@@ -14,7 +14,24 @@ public class MethodClass {
 	private String iplasma;
 	private String pmd;
 	private String isFeatureEnvy;
-
+	
+	/** Constructor of a MethodClass that will be represented in the esTable table
+	 * 
+	 * @param method_id Method ID column value
+	 * @param package_name Package name column value
+	 * @param class_name Class name column value
+	 * @param method_name Method name column value
+	 * @param loc LOC column value
+	 * @param cyclo CYCLO column value
+	 * @param aftd ATFD column value
+	 * @param laa LAA column value
+	 * @param is_long_method is_long_method column value
+	 * @param iplasma iPlasma column value
+	 * @param pmd PMD column value
+	 * @param is_feature_envy is_feature_envy column value
+	 * 
+	 * @return Returns a MethodClass */
+	
 	public MethodClass(String method_id, String package_name, String class_name, String method_name, String loc, String cyclo,
 			String aftd, String laa, String is_long_method, String iplasma, String pmd, String is_feature_envy) {
 		
@@ -33,11 +50,13 @@ public class MethodClass {
 	
 	}
 
+	/** Constructor of a MethodClass that will be represented in the esTable table
+	 * 
+	 * Returns a MethodClass */
 	
 	public MethodClass() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public String getMethodID() {
 		return methodID;
