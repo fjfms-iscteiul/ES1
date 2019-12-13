@@ -109,8 +109,10 @@ public class MyController implements Initializable {
 	private double AFTD;
 	private double LAA;	
 
-
-	/* Chooses file and inputs the path to readExcel */
+	/** Chooses file and inputs the path to readExcel
+	 * 
+	 */
+	
 	@FXML
 	public void importFile(ActionEvent event) {
 
@@ -128,8 +130,10 @@ public class MyController implements Initializable {
 
 	}
 
-
-	/* Initialize the table view */
+	/** Initializes both table views
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
@@ -150,7 +154,6 @@ public class MyController implements Initializable {
 		isFeatureEnvy.setCellValueFactory(new PropertyValueFactory<MethodClass, String>("isFeatureEnvy"));
 		
 		/* Defects table */
-		
 		defectsData = FXCollections.observableArrayList();
 		
 		methodDefectsColumn.setCellValueFactory(new PropertyValueFactory<Defects, String>("methodDefectsColumn"));
@@ -165,15 +168,20 @@ public class MyController implements Initializable {
 		
 	}
 
-
-	/* Reset the table to its original state */
+	/** Reset the table to its original state
+	 * 
+	 */
+	
 	@FXML
 	public void resetOriginal(ActionEvent event) throws IOException {
 		readExcel(excelFile.getAbsolutePath());
 	}
 
-
-	/* Methods to change the thresholds in Long and Feature */
+	
+	/** Methods to change the thresholds in Long
+	 * 
+	 */
+	
 	@FXML
 	private void changeValuesLong(ActionEvent event) {
 		
@@ -195,6 +203,10 @@ public class MyController implements Initializable {
 		esTable.getItems().addAll(temp);
 	}
 
+	/** Methods to change the thresholds Feature
+	 * 
+	 */
+	
 	@FXML
 	private void changeValuesFeature(ActionEvent event) {
 		
@@ -216,8 +228,10 @@ public class MyController implements Initializable {
 		esTable.getItems().addAll(temp);
 	}
 
+	/** Detects the defects within the a MethodClass item
+	 *  @param tableRow which contains excel attributes
+	 */
 
-	/* Detects the defects within the a MethodClass item */
 	private void defectsDetector(MethodClass tableRow) {
 
 		Defects defect = new Defects();
@@ -259,8 +273,10 @@ public class MyController implements Initializable {
 	}
 	
 
+	/** Updates the defects view in the GUI
+	 * 
+	 */
 
-	/* Updates the defects view in the GUI */
 	@FXML
 	private void updateDefectsCount(ActionEvent event) {
 		
@@ -291,7 +307,7 @@ public class MyController implements Initializable {
 		adciValuePMD.setText("" + adciPMD);
 		adiiValuePMD.setText("" + adiiPMD);
 
-		/* Pie Chart update */
+		/* Pie Chart update for iPlasma */
 		ObservableList<PieChart.Data> pieChartDataPlasma = FXCollections.observableArrayList(
 				new PieChart.Data("DCI", dciPlasma),
 				new PieChart.Data("DII", diiPlasma),
@@ -300,6 +316,7 @@ public class MyController implements Initializable {
 
 		pieDefectsPlasma.setData(pieChartDataPlasma);
 		
+		/* Pie Chart update for PMD */
 		ObservableList<PieChart.Data> pieChartDataPMD = FXCollections.observableArrayList(
 				new PieChart.Data("DCI", dciPMD),
 				new PieChart.Data("DII", diiPMD),
@@ -315,8 +332,10 @@ public class MyController implements Initializable {
 
 	}
 
+	/** Reads the ExcelFile and stores it in a List
+	 *  @param excel_file absolute path of the file
+	 */
 
-	/* Reads the ExcelFile and stores it in a List */
 	private void readExcel(String excel_file) throws IOException {
 
 		FileInputStream fis = new FileInputStream(excelFile);
