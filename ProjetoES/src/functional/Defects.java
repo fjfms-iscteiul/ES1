@@ -12,6 +12,18 @@ public class Defects {
 	private String adciPMDColumn;
 	private String adiiPMDColumn;
 	
+	/** Constructor of a defect that will be represented in the defects table
+	 * 
+	 * @param methodDefectsColumn Method ID column value for iPlasma
+	 * @param dciPlasmaColumn DCI column value for iPlasma
+	 * @param diiPlasmaColumn DII column value for iPlasma
+	 * @param adciPlasmaColumn ADCI column value for iPlasma
+	 * @param adiiPlasmaColumn ADII column value for iPlasma
+	 * @param dciPMDColumn DCI column value for PMD
+	 * @param diiPMDColumn DII column value for PMD
+	 * @param adciPMDColumn ADCI column value for PMD
+	 * @param adiiPMDColumn ADII column value for PMD
+	 * @return Returns a Defect */
 	
 	public Defects(String methodDefectsColumn, String dciPlasmaColumn, String diiPlasmaColumn, String adciPlasmaColumn, String adiiPlasmaColumn,
 			String dciPMDColumn, String diiPMDColumn, String adciPMDColumn, String adiiPMDColumn) {
@@ -26,17 +38,23 @@ public class Defects {
 		this.adiiPMDColumn = adiiPMDColumn;
 	}
 	
+	/** Constructor method of a defect that will be represented in the defects table
+	 * 
+	 * @return Returns a Defect */
+	
 	public Defects() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Defects [methodDefectsColumn=" + methodDefectsColumn + ", dciPlasmaColumn=" + dciPlasmaColumn + ", diiPlasmaColumn=" + diiPlasmaColumn
 				+ ", adciPlasmaColumn=" + adciPlasmaColumn + ", adiiPlasmaColumn=" + adiiPlasmaColumn + ", dciPMDColumn=" + dciPMDColumn + ", diiPMDColumn="
 				+ diiPMDColumn + ", adciPMDColumn=" + adciPMDColumn + ", adiiPMDColumn=" + adiiPMDColumn + "]";
 	}
-
+	
+	
+	
 	public String getMethodDefectsColumn() {
 		return methodDefectsColumn;
 	}

@@ -109,8 +109,7 @@ public class MyController implements Initializable {
 	private double AFTD;
 	private double LAA;	
 
-
-	/* Chooses file and inputs the path to readExcel */
+	
 	@FXML
 	public void importFile(ActionEvent event) {
 
